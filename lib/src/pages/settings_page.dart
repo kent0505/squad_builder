@@ -8,6 +8,8 @@ import '../widgets/dialog_widget.dart';
 import '../widgets/title_text.dart';
 import 'leagues_page.dart';
 import 'onboard_page.dart';
+import 'privacy_page.dart';
+import 'terms_page.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -56,12 +58,30 @@ class SettingsPage extends StatelessWidget {
                     _Divider(),
                     _Button(
                       title: 'Privacy Policy',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PrivacyPage();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     _Divider(),
                     _Button(
                       title: 'Terms of use',
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return TermsPage();
+                            },
+                          ),
+                        );
+                      },
                     ),
                     SizedBox(height: 6),
                   ],

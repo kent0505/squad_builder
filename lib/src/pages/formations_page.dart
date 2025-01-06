@@ -1,40 +1,60 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/league/league_bloc.dart';
-import '../widgets/button.dart';
+import '../models/formation.dart';
+import '../widgets/formation_card.dart';
+import '../widgets/title_text.dart';
 
 class FormationsPage extends StatelessWidget {
   const FormationsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LeagueBloc, LeagueState>(
-      builder: (context, state) {
-        if (state is LeagueLoaded) {
-          return ListView.builder(
-            itemCount: state.leagues.length,
-            itemBuilder: (context, index) {
-              return Button(
-                onPressed: () {
-                  // context
-                  //     .read<TestBloc>()
-                  //     .add(DeleteTest(model: state.models[index]));
-                },
-                child: Text(
-                  state.leagues[index].title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontFamily: 'w700',
-                  ),
+    return Stack(
+      children: [
+        Column(
+          children: [
+            SizedBox(height: MediaQuery.of(context).viewPadding.top),
+            SizedBox(
+              height: 80,
+              child: Row(
+                children: [
+                  SizedBox(width: 28),
+                  TitleText(title: 'Formations'),
+                ],
+              ),
+            ),
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                children: List.generate(
+                  6,
+                  (index) {
+                    return FormationCard(
+                      formation: Formation(
+                        id: 1,
+                        title: 'Aaa',
+                        formation: 'Aaaa',
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          );
-        }
-        return Container();
-      },
+              ),
+            ),
+            // Expanded(
+            //   child: ListView.builder(
+            //     padding: EdgeInsets.symmetric(
+            //       horizontal: 16,
+            //       vertical: 10,
+            //     ),
+            //     itemCount: state.leagues.length,
+            //     itemBuilder: (context, index) {
+            //       return LeagueCard(league: state.leagues[index]);
+            //     },
+            //   ),
+            // )
+          ],
+        ),
+      ],
     );
   }
 }
