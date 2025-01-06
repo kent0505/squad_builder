@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../models/player.dart';
+import '../widgets/app_bar_widget.dart';
 import '../widgets/filter_card.dart';
 import '../widgets/player_card.dart';
-import '../widgets/title_text.dart';
 
 class AllPlayersPage extends StatefulWidget {
   const AllPlayersPage({super.key});
@@ -18,24 +18,19 @@ class _AllPlayersPageState extends State<AllPlayersPage> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SizedBox(height: MediaQuery.of(context).viewPadding.top),
-        SizedBox(
-          height: 80,
-          child: Row(
-            children: [
-              SizedBox(width: 28),
-              TitleText(title: 'All Players'),
-              Spacer(),
-              FilterCard(),
-              SizedBox(width: 16),
-            ],
-          ),
+        AppBarWidget(
+          title: 'All Players',
+          back: false,
+          children: [
+            FilterCard(),
+            SizedBox(width: 16),
+          ],
         ),
         Expanded(
           child: ListView(
             padding: EdgeInsets.symmetric(
               horizontal: 16,
-              vertical: 16,
+              vertical: 10,
             ).copyWith(bottom: 130),
             children: List.generate(
               6,

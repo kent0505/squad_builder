@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/back.dart';
-import '../widgets/title_text.dart';
+import '../widgets/app_bar_widget.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
@@ -11,18 +10,7 @@ class SearchPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: MediaQuery.of(context).viewPadding.top),
-          SizedBox(
-            height: 80,
-            child: Row(
-              children: [
-                SizedBox(width: 16),
-                Back(),
-                SizedBox(width: 12),
-                TitleText(title: 'Search'),
-              ],
-            ),
-          ),
+          AppBarWidget(title: 'Search'),
           Expanded(
             child: ListView(
               children: [],

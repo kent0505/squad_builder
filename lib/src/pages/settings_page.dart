@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/league/league_bloc.dart';
 import '../blocs/navbar/navbar_bloc.dart';
+import '../widgets/app_bar_widget.dart';
 import '../widgets/button.dart';
 import '../widgets/dialog_widget.dart';
-import '../widgets/title_text.dart';
 import 'leagues_page.dart';
 import 'onboard_page.dart';
 import 'privacy_page.dart';
@@ -18,19 +18,16 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: MediaQuery.of(context).viewPadding.top),
-        SizedBox(
-          height: 80,
-          child: Row(
-            children: [
-              SizedBox(width: 28),
-              TitleText(title: 'Settings'),
-            ],
-          ),
+        AppBarWidget(
+          title: 'Settings',
+          back: false,
         ),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 16),
+            padding: EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 10,
+            ),
             children: [
               _Card(
                 child: Column(

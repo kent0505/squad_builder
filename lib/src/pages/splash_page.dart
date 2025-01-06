@@ -34,8 +34,11 @@ class SplashPage extends StatelessWidget {
           }
         },
         builder: (context, state) {
-          return const Center(
-            child: LoadingWidget(),
+          return Column(
+            children: [
+              SizedBox(height: 200 + MediaQuery.of(context).viewPadding.top),
+              LoadingWidget(),
+            ],
           );
         },
       ),

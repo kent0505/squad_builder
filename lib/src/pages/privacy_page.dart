@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/back.dart';
-import '../widgets/title_text.dart';
+import '../widgets/app_bar_widget.dart';
 
 class PrivacyPage extends StatelessWidget {
   const PrivacyPage({super.key});
@@ -11,18 +10,7 @@ class PrivacyPage extends StatelessWidget {
     return Scaffold(
       body: Column(
         children: [
-          SizedBox(height: MediaQuery.of(context).viewPadding.top),
-          SizedBox(
-            height: 80,
-            child: Row(
-              children: [
-                SizedBox(width: 16),
-                Back(),
-                SizedBox(width: 12),
-                TitleText(title: 'Privacy Policy'),
-              ],
-            ),
-          ),
+          AppBarWidget(title: 'Privacy Policy'),
           Expanded(
             child: ListView(
               padding: EdgeInsets.symmetric(

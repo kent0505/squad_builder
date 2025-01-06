@@ -24,17 +24,17 @@ class NavBar extends StatelessWidget {
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _NavBarButton(
+                _Button(
                   id: 1,
                   title: 'All Players',
                   active: state is NavbarInitial,
                 ),
-                _NavBarButton(
+                _Button(
                   id: 2,
                   title: 'Formations',
                   active: state is NavbarFormations,
                 ),
-                _NavBarButton(
+                _Button(
                   id: 3,
                   title: 'Settings',
                   active: state is NavbarSettings,
@@ -48,8 +48,8 @@ class NavBar extends StatelessWidget {
   }
 }
 
-class _NavBarButton extends StatelessWidget {
-  const _NavBarButton({
+class _Button extends StatelessWidget {
+  const _Button({
     required this.id,
     required this.title,
     required this.active,

@@ -3,10 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../blocs/league/league_bloc.dart';
-import '../widgets/back.dart';
+import '../widgets/app_bar_widget.dart';
 import '../widgets/league_card.dart';
 import '../widgets/main_button.dart';
-import '../widgets/title_text.dart';
 import 'home_page.dart';
 
 class LeaguesPage extends StatelessWidget {
@@ -27,23 +26,19 @@ class LeaguesPage extends StatelessWidget {
               children: [
                 Column(
                   children: [
-                    SizedBox(height: MediaQuery.of(context).viewPadding.top),
-                    SizedBox(
-                      height: 80,
-                      child: Row(
-                        children: [
-                          SizedBox(width: 16),
-                          Back(),
-                          SizedBox(width: 12),
-                          TitleText(title: 'Choose Leagues'),
-                          Spacer(),
-                          TitleText(
-                            title:
-                                '${state.leagues.where((league) => league.selected).length} / ${state.leagues.length}',
+                    AppBarWidget(
+                      title: 'Choose Leagues',
+                      children: [
+                        Text(
+                          '${state.leagues.where((league) => league.selected).length} / ${state.leagues.length}',
+                          style: TextStyle(
+                            color: Color(0xffFFF6F6),
+                            fontSize: 20,
+                            fontFamily: 'w700',
                           ),
-                          SizedBox(width: 28),
-                        ],
-                      ),
+                        ),
+                        SizedBox(width: 28),
+                      ],
                     ),
                     Expanded(
                       child: ListView.builder(

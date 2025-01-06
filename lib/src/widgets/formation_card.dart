@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../models/formation.dart';
+import '../pages/edit_formation_page.dart';
 import 'button.dart';
 
 class FormationCard extends StatelessWidget {
@@ -25,7 +26,16 @@ class FormationCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Button(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return EditFormationPage(formation: formation);
+              },
+            ),
+          );
+        },
         child: Row(
           children: [
             Column(

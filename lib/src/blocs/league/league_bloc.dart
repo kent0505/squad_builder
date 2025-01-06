@@ -11,7 +11,7 @@ part 'league_state.dart';
 class LeagueBloc extends Bloc<LeagueEvent, LeagueState> {
   LeagueBloc() : super(LeagueInitial()) {
     on<GetLeagues>((event, emit) async {
-      await initHive();
+      await hiveInit();
       final prefs = await SharedPreferences.getInstance();
       // await prefs.clear();
       bool onboard = prefs.getBool('onboard') ?? true;

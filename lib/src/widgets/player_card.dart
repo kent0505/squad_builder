@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../models/player.dart';
+import '../pages/player_details_page.dart';
+import 'button.dart';
 import 'svg_widget.dart';
 
 class PlayerCard extends StatelessWidget {
@@ -20,92 +22,104 @@ class PlayerCard extends StatelessWidget {
         color: Color(0xff2C2E31),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        children: [
-          SizedBox(height: 12),
-          Row(
-            children: [
-              SizedBox(width: 12),
-              Text(
-                player.team,
-                style: TextStyle(
-                  color: Color(0xffF12E36),
-                  fontSize: 14,
-                  fontFamily: 'w600',
+      child: Button(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return PlayerDetailsPage(player: player);
+              },
+            ),
+          );
+        },
+        child: Column(
+          children: [
+            SizedBox(height: 12),
+            Row(
+              children: [
+                SizedBox(width: 12),
+                Text(
+                  player.team,
+                  style: TextStyle(
+                    color: Color(0xffF12E36),
+                    fontSize: 14,
+                    fontFamily: 'w600',
+                  ),
                 ),
-              ),
-              Spacer(),
-              Transform.scale(
-                scaleX: -1,
-                child: SvgWidget('assets/back.svg'),
-              ),
-              SizedBox(width: 12),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            children: [
-              SizedBox(width: 12),
-              Container(
-                height: 58,
-                width: 58,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color(0xff545454),
+                Spacer(),
+                Transform.scale(
+                  scaleX: -1,
+                  child: SvgWidget('assets/back.svg'),
                 ),
-                child: Center(
-                  child: SvgWidget('assets/player.svg'),
+                SizedBox(width: 12),
+              ],
+            ),
+            SizedBox(height: 10),
+            Row(
+              children: [
+                SizedBox(width: 12),
+                Container(
+                  height: 58,
+                  width: 58,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Color(0xff545454),
+                  ),
+                  child: Center(
+                    child: SvgWidget('assets/player.svg'),
+                  ),
                 ),
-              ),
-              SizedBox(width: 10),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      player.name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                SizedBox(width: 10),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        player.name,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          color: Color(0xffFFF6F6),
+                          fontSize: 16,
+                          fontFamily: 'w600',
+                        ),
+                      ),
+                      SizedBox(height: 2),
+                      Text(
+                        player.position,
+                        style: TextStyle(
+                          color: Color(0xff5B5858),
+                          fontSize: 14,
+                          fontFamily: 'w400',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    color: Color(0xff323439),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Center(
+                    child: Text(
+                      '99',
                       style: TextStyle(
                         color: Color(0xffFFF6F6),
                         fontSize: 16,
                         fontFamily: 'w600',
                       ),
                     ),
-                    SizedBox(height: 2),
-                    Text(
-                      player.position,
-                      style: TextStyle(
-                        color: Color(0xff5B5858),
-                        fontSize: 14,
-                        fontFamily: 'w400',
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 40,
-                width: 40,
-                decoration: BoxDecoration(
-                  color: Color(0xff323439),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Center(
-                  child: Text(
-                    '99',
-                    style: TextStyle(
-                      color: Color(0xffFFF6F6),
-                      fontSize: 16,
-                      fontFamily: 'w600',
-                    ),
                   ),
                 ),
-              ),
-              SizedBox(width: 12),
-            ],
-          ),
-        ],
+                SizedBox(width: 12),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

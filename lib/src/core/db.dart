@@ -2,7 +2,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 import '../models/league.dart';
 
-Future<void> initHive() async {
+Future<void> hiveInit() async {
   await Hive.initFlutter();
   // await Hive.deleteBoxFromDisk('squad_builder_box');
   Hive.registerAdapter(LeagueAdapter());
@@ -16,7 +16,7 @@ Future<List<League>> getLeagues() async {
 
 Future<List<League>> updateLeagues(List<League> leagues) async {
   final box = await Hive.openBox('squad_builder_box');
-  box.put('leagues', leagues);
+  await box.put('leagues', leagues);
   return await box.get('leagues');
 }
 
