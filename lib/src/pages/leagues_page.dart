@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../blocs/league/league_bloc.dart';
-import '../core/utils.dart';
 import '../widgets/back.dart';
 import '../widgets/league_card.dart';
 import '../widgets/main_button.dart';
@@ -11,7 +10,12 @@ import '../widgets/title_text.dart';
 import 'home_page.dart';
 
 class LeaguesPage extends StatelessWidget {
-  const LeaguesPage({super.key});
+  const LeaguesPage({
+    super.key,
+    this.onboard = false,
+  });
+
+  final bool onboard;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +35,13 @@ class LeaguesPage extends StatelessWidget {
                           SizedBox(width: 16),
                           Back(),
                           SizedBox(width: 12),
-                          TitleText(title: 'Player Details'),
+                          TitleText(title: 'Choose Leagues'),
+                          Spacer(),
+                          TitleText(
+                            title:
+                                '${state.leagues.where((league) => league.selected).length} / ${state.leagues.length}',
+                          ),
+                          SizedBox(width: 28),
                         ],
                       ),
                     ),
@@ -55,20 +65,24 @@ class LeaguesPage extends StatelessWidget {
                     padding: const EdgeInsets.only(bottom: 54),
                     child: MainButton(
                       title: 'Apply',
-                      isActive: getButtonActive(state.leagues),
+                      isActive: state.leagues.any((league) => league.selected),
                       onPressed: () async {
-                        final prefs = await SharedPreferences.getInstance();
-                        await prefs.setBool('onboard', false);
-                        if (context.mounted) {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return HomePage();
-                              },
-                            ),
-                            (route) => false,
-                          );
+                        if (onboard) {
+                          final prefs = await SharedPreferences.getInstance();
+                          await prefs.setBool('onboard', false);
+                          if (context.mounted) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return HomePage();
+                                },
+                              ),
+                              (route) => false,
+                            );
+                          }
+                        } else {
+                          Navigator.pop(context);
                         }
                       },
                     ),

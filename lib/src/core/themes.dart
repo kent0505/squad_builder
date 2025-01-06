@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 final theme = ThemeData(
+  brightness: Brightness.dark,
   useMaterial3: false,
   fontFamily: 'w600',
   scaffoldBackgroundColor: Color(0xff222427),
   dialogTheme: const DialogTheme(
     shape: RoundedRectangleBorder(
-      borderRadius: BorderRadius.all(Radius.circular(24)),
+      borderRadius: BorderRadius.all(Radius.circular(14)),
     ),
   ),
 );

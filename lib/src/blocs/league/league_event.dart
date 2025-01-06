@@ -9,3 +9,5 @@ class EditLeague extends LeagueEvent {
   EditLeague({required this.league});
   final League league;
 }
+
+class ClearAll extends LeagueEvent {}

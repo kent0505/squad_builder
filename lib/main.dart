@@ -2,15 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'src/blocs/league/league_bloc.dart';
-import 'src/core/db.dart';
 import 'src/core/themes.dart';
 import 'src/blocs/navbar/navbar_bloc.dart';
+import 'src/blocs/league/league_bloc.dart';
 import 'src/pages/splash_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await initHive();
+
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,

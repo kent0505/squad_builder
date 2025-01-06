@@ -61,7 +61,7 @@ class OnboardPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return LeaguesPage();
+                            return LeaguesPage(onboard: true);
                           },
                         ),
                       );
