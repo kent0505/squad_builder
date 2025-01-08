@@ -24,14 +24,14 @@ class CreateFormationPage extends StatefulWidget {
 class _CreateFormationPageState extends State<CreateFormationPage> {
   final controller = TextEditingController();
   bool popup = false;
-  List<Player> players = List.generate(
-    11,
-    (index) => Player(
+
+  List<Player> players = List.generate(11, (index) {
+    return Player(
       name: '',
       position: '',
       team: '',
-    ),
-  );
+    );
+  });
 
   void onPopup(String value) {
     context.read<FormationBloc>().add(ChangeFormation(formation: value));
@@ -52,7 +52,7 @@ class _CreateFormationPageState extends State<CreateFormationPage> {
     }
   }
 
-  void onSave(String formation) async {
+  void onSave(String formation, List<Player> players) async {
     await showDialog(
       context: context,
       barrierDismissible: false,
@@ -83,22 +83,12 @@ class _CreateFormationPageState extends State<CreateFormationPage> {
     );
   }
 
-  void onPlayer(Player player, int index) async {
+  void onPlayer(Player player, int index) {
     onClosePopup();
-    await Navigator.push<Player>(
-      context,
-      MaterialPageRoute(
-        builder: (context) {
-          return ChoosePlayerPage(player: player);
-        },
-      ),
-    ).then((value) {
-      if (value != null) {
-        setState(() {
-          players.removeAt(index);
-          players.insert(index, value);
-        });
-      }
+    print(index);
+    setState(() {
+      players.removeAt(index);
+      players.insert(index, player);
     });
   }
 
@@ -127,7 +117,7 @@ class _CreateFormationPageState extends State<CreateFormationPage> {
                             title: 'Save',
                             width: 126,
                             onPressed: () {
-                              onSave(state.formation);
+                              onSave(state.formation, players);
                             },
                           );
                         }
@@ -148,18 +138,38 @@ class _CreateFormationPageState extends State<CreateFormationPage> {
                           fit: BoxFit.fill,
                         ),
                       ),
-                      BlocBuilder<FormationBloc, FormationState>(
-                        builder: (context, state) {
-                          if (state is FormationsLoaded) {
-                            return _PlayersFormation(
-                              formation: state.formation,
-                              players: players,
-                              onPlayer: onPlayer,
-                            );
+                      BlocListener<FormationBloc, FormationState>(
+                        listener: (context, state) {
+                          if (state is PlayerSelected) {
+                            onPlayer(state.player, state.index);
                           }
-
-                          return Container();
                         },
+                        child: BlocBuilder<FormationBloc, FormationState>(
+                          builder: (context, state) {
+                            if (state is FormationsLoaded) {
+                              return _PlayersFormation(
+                                formation: state.formation,
+                                players: players,
+                                onPlayer: (player, index) {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return ChoosePlayerPage(
+                                          player: player,
+                                          playerIndex: index,
+                                          fortmation: state.formation,
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
+                            }
+
+                            return Container();
+                          },
+                        ),
                       ),
                     ],
                   ),
@@ -230,42 +240,31 @@ class _Player extends StatelessWidget {
       child: SizedBox(
         height: 64,
         width: 74,
-        child: Stack(
-          fit: StackFit.expand,
+        child: Column(
           children: [
-            Column(
-              children: [
-                Expanded(
-                  child: players[index].name.isEmpty
-                      ? SvgWidget('assets/player2.svg')
-                      : Container(
-                          height: 48,
-                          width: 48,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: Color(0xff545454),
-                          ),
-                          child: Center(
-                            child: SvgWidget('assets/player.svg'),
-                          ),
-                        ),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  players[index].name.isEmpty ? 'Player' : players[index].name,
-                  style: TextStyle(
-                    color: Color(0xffFFF6F6),
-                    fontSize: 12,
-                    fontFamily: 'w600',
-                    height: 1,
-                  ),
-                ),
-              ],
+            Expanded(
+              child: players[index].name.isEmpty
+                  ? SvgWidget('assets/player2.svg')
+                  : Container(
+                      height: 48,
+                      width: 48,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xff545454),
+                      ),
+                      child: Center(
+                        child: SvgWidget('assets/player.svg'),
+                      ),
+                    ),
             ),
-            Center(
-              child: Text(
-                index.toString(),
-                style: TextStyle(color: Colors.black),
+            SizedBox(height: 4),
+            Text(
+              players[index].name.isEmpty ? 'Player' : players[index].name,
+              style: TextStyle(
+                color: Color(0xffFFF6F6),
+                fontSize: 12,
+                fontFamily: 'w600',
+                height: 1,
               ),
             ),
           ],

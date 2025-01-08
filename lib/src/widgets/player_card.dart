@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../models/player.dart';
-import '../pages/player_details_page.dart';
 import 'button.dart';
 import 'svg_widget.dart';
 
@@ -9,11 +8,13 @@ class PlayerCard extends StatelessWidget {
   const PlayerCard({
     super.key,
     required this.player,
-    this.current,
+    required this.onPressed,
+    this.active = false,
   });
 
   final Player player;
-  final Player? current;
+  final bool active;
+  final void Function() onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class PlayerCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xff2C2E31),
         borderRadius: BorderRadius.circular(12),
-        border: current != null && player.name == current!.name
+        border: active
             ? Border.all(
                 width: 1,
                 color: Colors.white,
@@ -31,18 +32,7 @@ class PlayerCard extends StatelessWidget {
             : null,
       ),
       child: Button(
-        onPressed: () {
-          current == null
-              ? Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return PlayerDetailsPage(player: player);
-                    },
-                  ),
-                )
-              : Navigator.pop(context, player);
-        },
+        onPressed: onPressed,
         child: Column(
           children: [
             SizedBox(height: 12),

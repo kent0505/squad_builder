@@ -9,10 +9,18 @@ final class FormationsLoaded extends FormationState {
   FormationsLoaded({
     required this.formation,
     required this.formations,
-    required this.players,
   });
 
   final String formation;
   final List<Formation> formations;
-  final List<Player> players;
+}
+
+final class PlayerSelected extends FormationState {
+  PlayerSelected({
+    required this.player,
+    required this.index,
+  });
+
+  final Player player;
+  final int index;
 }

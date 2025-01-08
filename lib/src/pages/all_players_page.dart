@@ -5,6 +5,7 @@ import '../blocs/league/league_bloc.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/filter_card.dart';
 import '../widgets/player_card.dart';
+import 'player_details_page.dart';
 
 class AllPlayersPage extends StatefulWidget {
   const AllPlayersPage({super.key});
@@ -38,7 +39,21 @@ class _AllPlayersPageState extends State<AllPlayersPage> {
                   ).copyWith(bottom: 120),
                   itemCount: state.leagues.length,
                   itemBuilder: (context, index) {
-                    return PlayerCard(player: state.players[index]);
+                    return PlayerCard(
+                      player: state.players[index],
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PlayerDetailsPage(
+                                player: state.players[index],
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
                   },
                 ),
               );

@@ -8,9 +8,15 @@ import '../widgets/app_bar_widget.dart';
 import '../widgets/button.dart';
 import '../widgets/player_card.dart';
 import '../widgets/svg_widget.dart';
+import 'player_details_page.dart';
 
 class SearchPage extends StatefulWidget {
-  const SearchPage({super.key});
+  const SearchPage({
+    super.key,
+    this.select = false,
+  });
+
+  final bool select;
 
   @override
   State<SearchPage> createState() => _SearchPageState();
@@ -139,7 +145,23 @@ class _SearchPageState extends State<SearchPage> {
                       ),
                       itemCount: players.length,
                       itemBuilder: (context, index) {
-                        return PlayerCard(player: players[index]);
+                        return PlayerCard(
+                          player: players[index],
+                          onPressed: () {
+                            widget.select
+                                ? Navigator.pop(context, players[index])
+                                : Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return PlayerDetailsPage(
+                                          player: state.players[index],
+                                        );
+                                      },
+                                    ),
+                                  );
+                          },
+                        );
                       },
                     ),
                   ),

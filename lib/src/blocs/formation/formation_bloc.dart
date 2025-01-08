@@ -16,7 +16,6 @@ class FormationBloc extends Bloc<FormationEvent, FormationState> {
       emit(FormationsLoaded(
         formation: event.formation,
         formations: formations,
-        players: [],
       ));
     });
 
@@ -28,7 +27,6 @@ class FormationBloc extends Bloc<FormationEvent, FormationState> {
       emit(FormationsLoaded(
         formation: '4-4-2',
         formations: formations,
-        players: [],
       ));
     });
 
@@ -40,7 +38,20 @@ class FormationBloc extends Bloc<FormationEvent, FormationState> {
       emit(FormationsLoaded(
         formation: '4-4-2',
         formations: formations,
-        players: [],
+      ));
+    });
+
+    on<SelectPlayer>((event, emit) async {
+      emit(PlayerSelected(
+        player: event.player,
+        index: event.index,
+      ));
+
+      List<Formation> formations = await getFormations();
+
+      emit(FormationsLoaded(
+        formation: event.formation,
+        formations: formations,
       ));
     });
   }

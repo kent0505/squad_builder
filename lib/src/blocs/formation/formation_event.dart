@@ -22,3 +22,15 @@ class DeleteFormation extends FormationEvent {
 
   final Formation formation;
 }
+
+class SelectPlayer extends FormationEvent {
+  SelectPlayer({
+    required this.player,
+    required this.index,
+    required this.formation,
+  });
+
+  final Player player;
+  final int index;
+  final String formation;
+}

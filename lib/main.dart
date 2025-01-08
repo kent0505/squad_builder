@@ -15,6 +15,7 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+
   runApp(const MyApp());
 }
 
@@ -25,12 +26,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => NavbarBloc()),
-        BlocProvider(create: (context) => LeagueBloc()..add(GetLeagues())),
-        BlocProvider(
-          create: (context) =>
-              FormationBloc()..add(ChangeFormation(formation: '4-4-2')),
-        ),
+        BlocProvider(create: (context) {
+          return NavbarBloc();
+        }),
+        BlocProvider(create: (context) {
+          return LeagueBloc()..add(GetLeagues());
+        }),
+        BlocProvider(create: (context) {
+          return FormationBloc()..add(ChangeFormation(formation: '4-4-2'));
+        }),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
