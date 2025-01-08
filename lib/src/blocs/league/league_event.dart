@@ -11,3 +11,9 @@ class EditLeague extends LeagueEvent {
 }
 
 class ClearAll extends LeagueEvent {}
+
+class FilterPlayers extends LeagueEvent {
+  FilterPlayers({required this.position});
+
+  final String position;
+}

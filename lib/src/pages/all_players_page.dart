@@ -37,10 +37,10 @@ class _AllPlayersPageState extends State<AllPlayersPage> {
                     horizontal: 16,
                     vertical: 10,
                   ).copyWith(bottom: 120),
-                  itemCount: state.leagues.length,
+                  itemCount: state.filteredPlayers.length,
                   itemBuilder: (context, index) {
                     return PlayerCard(
-                      player: state.players[index],
+                      player: state.filteredPlayers[index],
                       onPressed: () {
                         Navigator.push(
                           context,

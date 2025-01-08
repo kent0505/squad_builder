@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:squad_builder/src/blocs/league/league_bloc.dart';
 
 import 'button.dart';
 
@@ -72,32 +74,109 @@ class FilterSheet extends StatelessWidget {
             ],
           ),
           SizedBox(height: 24),
-          Container(
-            height: 50,
-            margin: EdgeInsets.symmetric(horizontal: 16),
-            decoration: BoxDecoration(
-              color: Color(0xffF12E36),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Button(
-              onPressed: () {},
-              child: Row(
-                children: [
-                  SizedBox(width: 10),
-                  Text(
-                    'All Positions',
-                    style: TextStyle(
-                      color: Color(0xffFFF6F6),
-                      fontSize: 14,
-                      fontFamily: 'w600',
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          Row(
+            children: [
+              SizedBox(width: 16),
+              _Filter('All Positions'),
+              SizedBox(width: 16),
+            ],
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              SizedBox(width: 16),
+              _Filter('Goalkeeper'),
+              SizedBox(width: 8),
+              _Filter('Striker'),
+              SizedBox(width: 16),
+            ],
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              SizedBox(width: 16),
+              _Filter('Center Back'),
+              SizedBox(width: 8),
+              _Filter('Full Back'),
+              SizedBox(width: 16),
+            ],
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              SizedBox(width: 16),
+              _Filter('Miedfielder'),
+              SizedBox(width: 8),
+              _Filter('Winger'),
+              SizedBox(width: 16),
+            ],
+          ),
+          SizedBox(height: 8),
+          Row(
+            children: [
+              SizedBox(width: 16),
+              _Filter('Forward'),
+              SizedBox(width: 8),
+              Spacer(),
+              SizedBox(width: 16),
+            ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class _Filter extends StatelessWidget {
+  const _Filter(this.position);
+
+  final String position;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<LeagueBloc, LeagueState>(
+      builder: (context, state) {
+        if (state is LeagueLoaded) {
+          return Expanded(
+            child: Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: state.position == position
+                    ? Color(0xffF12E36)
+                    : Color(0xff2C2E31),
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(
+                  width: 1,
+                  color: Colors.white.withValues(alpha: 0.06),
+                ),
+              ),
+              child: Button(
+                onPressed: () {
+                  context
+                      .read<LeagueBloc>()
+                      .add(FilterPlayers(position: position));
+                  Navigator.pop(context);
+                },
+                child: Row(
+                  children: [
+                    SizedBox(width: 10),
+                    Text(
+                      position,
+                      style: TextStyle(
+                        color: Color(0xffFFF6F6),
+                        fontSize: 14,
+                        fontFamily: 'w600',
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }
+
+        return Container();
+      },
     );
   }
 }

@@ -102,7 +102,7 @@ class ChoosePlayerPage extends StatelessWidget {
                       horizontal: 16,
                       vertical: 10,
                     ),
-                    itemCount: state.leagues.length,
+                    itemCount: state.players.length,
                     itemBuilder: (context, index) {
                       return PlayerCard(
                         player: state.players[index],

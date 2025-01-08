@@ -23,6 +23,7 @@ class LeagueBloc extends Bloc<LeagueEvent, LeagueState> {
       emit(LeagueLoaded(
         leagues: leagues,
         players: players,
+        filteredPlayers: players,
         onboard: onboard,
       ));
     });
@@ -54,6 +55,25 @@ class LeagueBloc extends Bloc<LeagueEvent, LeagueState> {
       emit(LeagueLoaded(
         leagues: leagues,
         players: players,
+        filteredPlayers: players,
+      ));
+    });
+
+    on<FilterPlayers>((event, emit) async {
+      List<League> leagues = await getLeagues();
+      List<Player> players = await getPlayers();
+
+      List<Player> filteredPlayers = event.position == 'All Positions'
+          ? players
+          : players
+              .where((element) => element.position == event.position)
+              .toList();
+
+      emit(LeagueLoaded(
+        leagues: leagues,
+        players: players,
+        position: event.position,
+        filteredPlayers: filteredPlayers,
       ));
     });
   }
