@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'src/blocs/formation/formation_bloc.dart';
 import 'src/core/themes.dart';
 import 'src/blocs/navbar/navbar_bloc.dart';
 import 'src/blocs/league/league_bloc.dart';
@@ -26,6 +27,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => NavbarBloc()),
         BlocProvider(create: (context) => LeagueBloc()..add(GetLeagues())),
+        BlocProvider(
+          create: (context) =>
+              FormationBloc()..add(ChangeFormation(formation: '4-4-2')),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

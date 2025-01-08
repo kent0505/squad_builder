@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/db.dart';
 import '../../models/league.dart';
+import '../../models/player.dart';
 
 part 'league_event.dart';
 part 'league_state.dart';
@@ -17,15 +18,18 @@ class LeagueBloc extends Bloc<LeagueEvent, LeagueState> {
       bool onboard = prefs.getBool('onboard') ?? true;
 
       List<League> leagues = await getLeagues();
+      List<Player> players = await getPlayers();
 
       emit(LeagueLoaded(
         leagues: leagues,
+        players: players,
         onboard: onboard,
       ));
     });
 
     on<EditLeague>((event, emit) async {
       List<League> leagues = await getLeagues();
+      List<Player> players = await getPlayers();
 
       for (League league in leagues) {
         if (league.title == event.league.title) {
@@ -34,7 +38,10 @@ class LeagueBloc extends Bloc<LeagueEvent, LeagueState> {
         }
       }
 
-      emit(LeagueLoaded(leagues: leagues));
+      emit(LeagueLoaded(
+        leagues: leagues,
+        players: players,
+      ));
     });
 
     on<ClearAll>((event, emit) async {
@@ -42,8 +49,12 @@ class LeagueBloc extends Bloc<LeagueEvent, LeagueState> {
       await prefs.clear();
 
       List<League> leagues = await updateLeagues(leaguesList);
+      List<Player> players = await getPlayers();
 
-      emit(LeagueLoaded(leagues: leagues));
+      emit(LeagueLoaded(
+        leagues: leagues,
+        players: players,
+      ));
     });
   }
 }

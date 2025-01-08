@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 
+import '../core/utils.dart';
 import '../models/formation.dart';
-import '../pages/edit_formation_page.dart';
+import '../pages/formation_details_page.dart';
 import 'button.dart';
 
 class FormationCard extends StatelessWidget {
-  const FormationCard({
-    super.key,
-    required this.formation,
-  });
+  const FormationCard({super.key, required this.formation});
 
   final Formation formation;
 
@@ -31,7 +29,7 @@ class FormationCard extends StatelessWidget {
             context,
             MaterialPageRoute(
               builder: (context) {
-                return EditFormationPage(formation: formation);
+                return FormationDetailsPage(formation: formation);
               },
             ),
           );
@@ -51,7 +49,7 @@ class FormationCard extends StatelessWidget {
                 ),
                 SizedBox(height: 2),
                 Text(
-                  formation.formation,
+                  formatTimestamp(formation.id),
                   style: TextStyle(
                     color: Color(0xff5B5858),
                     fontSize: 12,

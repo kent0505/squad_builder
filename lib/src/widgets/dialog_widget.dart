@@ -6,14 +6,18 @@ class DialogWidget extends StatelessWidget {
   const DialogWidget({
     super.key,
     required this.title,
-    required this.description,
+    this.description = '',
     required this.buttonTitle,
+    this.buttonColor = const Color(0xffF12E36),
+    this.children = const [],
     required this.onPressed,
   });
 
   final String title;
   final String description;
   final String buttonTitle;
+  final Color buttonColor;
+  final List<Widget> children;
   final void Function() onPressed;
 
   @override
@@ -34,19 +38,22 @@ class DialogWidget extends StatelessWidget {
                 fontFamily: 'w600',
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14),
-              child: Text(
-                description,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14,
-                  fontFamily: 'w400',
-                  height: 1.2,
+            if (description.isEmpty)
+              ...children
+            else
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: Text(
+                  description,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 14,
+                    fontFamily: 'w400',
+                    height: 1.2,
+                  ),
                 ),
               ),
-            ),
             const Spacer(),
             Container(
               height: 1,
@@ -68,7 +75,7 @@ class DialogWidget extends StatelessWidget {
                 ),
                 _Button(
                   title: buttonTitle,
-                  color: Color(0xffF12E36),
+                  color: buttonColor,
                   onPressed: () {
                     Navigator.pop(context);
                     onPressed();

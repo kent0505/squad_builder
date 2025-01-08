@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/player.dart';
+import '../blocs/league/league_bloc.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/filter_card.dart';
 import '../widgets/player_card.dart';
@@ -26,25 +27,25 @@ class _AllPlayersPageState extends State<AllPlayersPage> {
             SizedBox(width: 16),
           ],
         ),
-        Expanded(
-          child: ListView(
-            padding: EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 10,
-            ).copyWith(bottom: 130),
-            children: List.generate(
-              6,
-              (index) {
-                return PlayerCard(
-                  player: Player(
-                    name: 'Aaa',
-                    position: 'Aaaa',
-                    team: 'Aaaaa',
-                  ),
-                );
-              },
-            ),
-          ),
+        BlocBuilder<LeagueBloc, LeagueState>(
+          builder: (context, state) {
+            if (state is LeagueLoaded) {
+              return Expanded(
+                child: ListView.builder(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ).copyWith(bottom: 120),
+                  itemCount: state.leagues.length,
+                  itemBuilder: (context, index) {
+                    return PlayerCard(player: state.players[index]);
+                  },
+                ),
+              );
+            }
+
+            return Container();
+          },
         ),
       ],
     );

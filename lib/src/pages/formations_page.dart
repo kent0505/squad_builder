@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../models/formation.dart';
+import '../blocs/formation/formation_bloc.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/formation_card.dart';
 import '../widgets/main_button.dart';
@@ -19,25 +20,27 @@ class FormationsPage extends StatelessWidget {
               title: 'Formations',
               back: false,
             ),
-            Expanded(
-              child: ListView(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 10,
-                ),
-                children: List.generate(
-                  6,
-                  (index) {
-                    return FormationCard(
-                      formation: Formation(
-                        id: 1,
-                        title: 'Aaa',
-                        formation: 'Aaaa',
-                      ),
-                    );
-                  },
-                ),
-              ),
+            BlocBuilder<FormationBloc, FormationState>(
+              builder: (context, state) {
+                if (state is FormationsLoaded) {
+                  return Expanded(
+                    child: ListView.builder(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ).copyWith(bottom: 120),
+                      itemCount: state.formations.length,
+                      itemBuilder: (context, index) {
+                        return FormationCard(
+                          formation: state.formations[index],
+                        );
+                      },
+                    ),
+                  );
+                }
+
+                return Container();
+              },
             ),
           ],
         ),

@@ -9,9 +9,11 @@ class PlayerCard extends StatelessWidget {
   const PlayerCard({
     super.key,
     required this.player,
+    this.current,
   });
 
   final Player player;
+  final Player? current;
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +23,25 @@ class PlayerCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Color(0xff2C2E31),
         borderRadius: BorderRadius.circular(12),
+        border: current != null && player.name == current!.name
+            ? Border.all(
+                width: 1,
+                color: Colors.white,
+              )
+            : null,
       ),
       child: Button(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) {
-                return PlayerDetailsPage(player: player);
-              },
-            ),
-          );
+          current == null
+              ? Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return PlayerDetailsPage(player: player);
+                    },
+                  ),
+                )
+              : Navigator.pop(context, player);
         },
         child: Column(
           children: [
