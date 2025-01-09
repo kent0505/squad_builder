@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../blocs/league/league_bloc.dart';
+import '../blocs/player/player_bloc.dart';
 import '../models/player.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/button.dart';
@@ -55,9 +55,9 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<LeagueBloc, LeagueState>(
+      body: BlocBuilder<PlayerBloc, PlayerState>(
         builder: (context, state) {
-          if (state is LeagueLoaded) {
+          if (state is PlayersLoaded) {
             final players = searchPlayers(state.players, controller.text);
 
             return Column(

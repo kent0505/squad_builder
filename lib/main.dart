@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'src/blocs/formation/formation_bloc.dart';
+import 'src/blocs/player/player_bloc.dart';
 import 'src/core/themes.dart';
 import 'src/blocs/navbar/navbar_bloc.dart';
 import 'src/blocs/league/league_bloc.dart';
@@ -10,7 +12,7 @@ import 'src/pages/splash_page.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await dotenv.load(fileName: ".env");
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -28,6 +30,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) {
           return NavbarBloc();
+        }),
+        BlocProvider(create: (context) {
+          return PlayerBloc()..add(GetPlayers());
         }),
         BlocProvider(create: (context) {
           return LeagueBloc()..add(GetLeagues());

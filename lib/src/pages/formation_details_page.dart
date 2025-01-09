@@ -27,14 +27,7 @@ class FormationDetailsPage extends StatefulWidget {
 
 class _FormationDetailsPageState extends State<FormationDetailsPage> {
   final globalKey = GlobalKey();
-  List<Player> players = List.generate(
-    11,
-    (index) => Player(
-      name: '',
-      position: '',
-      team: '',
-    ),
-  );
+  List<Player> players = List.generate(11, (index) => emptyPlayer);
 
   Future<void> onShare() async {
     try {
@@ -164,6 +157,7 @@ class _Player extends StatelessWidget {
           SizedBox(height: 4),
           Text(
             players[index].name.isEmpty ? 'Player' : players[index].name,
+            textAlign: TextAlign.center,
             style: TextStyle(
               color: Color(0xffFFF6F6),
               fontSize: 12,

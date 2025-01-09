@@ -25,13 +25,7 @@ class _CreateFormationPageState extends State<CreateFormationPage> {
   final controller = TextEditingController();
   bool popup = false;
 
-  List<Player> players = List.generate(11, (index) {
-    return Player(
-      name: '',
-      position: '',
-      team: '',
-    );
-  });
+  List<Player> players = List.generate(11, (index) => emptyPlayer);
 
   void onPopup(String value) {
     context.read<FormationBloc>().add(ChangeFormation(formation: value));
@@ -260,6 +254,7 @@ class _Player extends StatelessWidget {
             SizedBox(height: 4),
             Text(
               players[index].name.isEmpty ? 'Player' : players[index].name,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xffFFF6F6),
                 fontSize: 12,

@@ -54,5 +54,13 @@ class FormationBloc extends Bloc<FormationEvent, FormationState> {
         formations: formations,
       ));
     });
+
+    on<DeleteAllFormations>((event, emit) async {
+      List<Formation> formations = await updateFormations([]);
+      emit(FormationsLoaded(
+        formation: '4-4-2',
+        formations: formations,
+      ));
+    });
   }
 }

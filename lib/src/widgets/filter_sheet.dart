@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:squad_builder/src/blocs/league/league_bloc.dart';
 
+import '../blocs/player/player_bloc.dart';
 import 'button.dart';
 
 class FilterSheet extends StatelessWidget {
@@ -134,9 +134,9 @@ class _Filter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<LeagueBloc, LeagueState>(
+    return BlocBuilder<PlayerBloc, PlayerState>(
       builder: (context, state) {
-        if (state is LeagueLoaded) {
+        if (state is PlayersLoaded) {
           return Expanded(
             child: Container(
               height: 50,
@@ -152,9 +152,10 @@ class _Filter extends StatelessWidget {
               ),
               child: Button(
                 onPressed: () {
-                  context
-                      .read<LeagueBloc>()
-                      .add(FilterPlayers(position: position));
+                  context.read<PlayerBloc>().add(FilterPlayers(
+                        position: position,
+                        players: state.players,
+                      ));
                   Navigator.pop(context);
                 },
                 child: Row(

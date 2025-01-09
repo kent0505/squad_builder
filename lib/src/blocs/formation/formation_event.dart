@@ -34,3 +34,5 @@ class SelectPlayer extends FormationEvent {
   final int index;
   final String formation;
 }
+
+class DeleteAllFormations extends FormationEvent {}

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/formation/formation_bloc.dart';
-import '../blocs/league/league_bloc.dart';
+import '../blocs/player/player_bloc.dart';
 import '../models/player.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/button.dart';
@@ -70,11 +70,7 @@ class ChoosePlayerPage extends StatelessWidget {
                             ? null
                             : () {
                                 context.read<FormationBloc>().add(SelectPlayer(
-                                      player: Player(
-                                        name: '',
-                                        position: '',
-                                        team: '',
-                                      ),
+                                      player: emptyPlayer,
                                       index: playerIndex,
                                       formation: fortmation,
                                     ));
@@ -93,23 +89,28 @@ class ChoosePlayerPage extends StatelessWidget {
               SizedBox(width: 16),
             ],
           ),
-          BlocBuilder<LeagueBloc, LeagueState>(
+          BlocBuilder<PlayerBloc, PlayerState>(
             builder: (context, state) {
-              if (state is LeagueLoaded) {
+              if (state is PlayersLoaded) {
+                final reorderedPlayers = [
+                  ...state.players.where((p) => p.name == player.name),
+                  ...state.players.where((p) => p.name != player.name),
+                ];
+
                 return Expanded(
                   child: ListView.builder(
                     padding: EdgeInsets.symmetric(
                       horizontal: 16,
                       vertical: 10,
                     ),
-                    itemCount: state.players.length,
+                    itemCount: reorderedPlayers.length,
                     itemBuilder: (context, index) {
                       return PlayerCard(
-                        player: state.players[index],
-                        active: state.players[index].name == player.name,
+                        player: reorderedPlayers[index],
+                        active: reorderedPlayers[index].name == player.name,
                         onPressed: () {
                           context.read<FormationBloc>().add(SelectPlayer(
-                                player: state.players[index],
+                                player: reorderedPlayers[index],
                                 index: playerIndex,
                                 formation: fortmation,
                               ));

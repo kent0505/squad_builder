@@ -106,7 +106,7 @@ class PlayerCard extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      '99',
+                      player.number.toString(),
                       style: TextStyle(
                         color: Color(0xffFFF6F6),
                         fontSize: 16,

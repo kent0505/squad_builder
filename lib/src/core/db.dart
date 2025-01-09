@@ -12,6 +12,10 @@ Future<void> hiveInit() async {
   Hive.registerAdapter(PlayerAdapter());
 }
 
+Future<void> hiveClear() async {
+  await Hive.deleteBoxFromDisk('squad_builder_box');
+}
+
 // leagues
 Future<List<League>> getLeagues() async {
   final box = await Hive.openBox('squad_builder_box');
@@ -46,19 +50,3 @@ List<League> leaguesList = [
   League(title: "Ligue 1", country: "France", selected: false),
   League(title: "Major League Soccer", country: "USA/Canada", selected: false),
 ];
-
-Future<List<Player>> getPlayers() async {
-  return [
-    Player(name: 'Aaa', position: 'Striker', team: 'Aaaaa'),
-    Player(name: 'Bbb', position: 'Striker', team: 'Aaaaa'),
-    Player(name: 'Ccc', position: 'Striker', team: 'Aaaaa'),
-    Player(name: 'Ddd', position: 'Center Back', team: 'Aaaaa'),
-    Player(name: 'Eee', position: 'Center Back', team: 'Aaaaa'),
-    Player(name: 'Fff', position: 'Center Back', team: 'Aaaaa'),
-    Player(name: 'Ggg', position: 'Full Back', team: 'Aaaaa'),
-    Player(name: 'Hhh', position: 'Full Back', team: 'Aaaaa'),
-    Player(name: 'Iii', position: 'Full Back', team: 'Aaaaa'),
-    Player(name: 'Jjj', position: 'Full Back', team: 'Aaaaa'),
-    Player(name: 'Kkk', position: 'Goalkeeper', team: 'Aaaaa'),
-  ];
-}

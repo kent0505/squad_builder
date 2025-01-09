@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:squad_builder/src/blocs/formation/formation_bloc.dart';
 
 import '../blocs/league/league_bloc.dart';
 import '../blocs/navbar/navbar_bloc.dart';
+import '../core/db.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/button.dart';
 import '../widgets/dialog_widget.dart';
@@ -112,20 +115,29 @@ class SettingsPage extends StatelessWidget {
                               description:
                                   'Are you sure you want to clear all data? This action cannot be undone.',
                               buttonTitle: 'Clear',
-                              onPressed: () {
-                                context.read<LeagueBloc>().add(ClearAll());
-                                context
-                                    .read<NavbarBloc>()
-                                    .add(ChangePage(index: 1));
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return OnboardPage();
-                                    },
-                                  ),
-                                  (route) => false,
-                                );
+                              onPressed: () async {
+                                final prefs =
+                                    await SharedPreferences.getInstance();
+                                await prefs.clear();
+                                await hiveClear();
+                                if (context.mounted) {
+                                  context.read<LeagueBloc>().add(ClearAll());
+                                  context
+                                      .read<FormationBloc>()
+                                      .add(DeleteAllFormations());
+                                  context
+                                      .read<NavbarBloc>()
+                                      .add(ChangePage(index: 1));
+                                  Navigator.pushAndRemoveUntil(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) {
+                                        return OnboardPage();
+                                      },
+                                    ),
+                                    (route) => false,
+                                  );
+                                }
                               },
                             );
                           },
