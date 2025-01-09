@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:squad_builder/src/widgets/filter_sheet.dart';
 
 import '../pages/search_page.dart';
 import 'button.dart';
+import 'filter_sheet.dart';
 import 'svg_widget.dart';
 
 class FilterCard extends StatelessWidget {

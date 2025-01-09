@@ -150,16 +150,25 @@ class _SearchPageState extends State<SearchPage> {
                           onPressed: () {
                             widget.select
                                 ? Navigator.pop(context, players[index])
-                                : Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) {
-                                        return PlayerDetailsPage(
-                                          player: state.players[index],
-                                        );
-                                      },
+                                : {
+                                    // context
+                                    //     .read<PlayerBloc>()
+                                    //     .add(GetPlayerDetails(
+                                    //       pid: state.players[index].pid,
+                                    //       players: state.players,
+                                    //     )),
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return PlayerDetailsPage(
+                                            player:
+                                                state.filteredPlayers[index],
+                                          );
+                                        },
+                                      ),
                                     ),
-                                  );
+                                  };
                           },
                         );
                       },

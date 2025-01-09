@@ -38,35 +38,33 @@ class _AllPlayersPageState extends State<AllPlayersPage> {
               }
 
               if (state is PlayersLoaded) {
-                return RefreshIndicator(
-                  displacement: 10,
-                  onRefresh: () async {
-                    context.read<PlayerBloc>().add(GetPlayers());
+                return ListView.builder(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 10,
+                  ).copyWith(bottom: 120),
+                  itemCount: state.filteredPlayers.length,
+                  itemBuilder: (context, index) {
+                    return PlayerCard(
+                      player: state.filteredPlayers[index],
+                      onPressed: () {
+                        // context.read<PlayerBloc>().add(GetPlayerDetails(
+                        //       pid: state.players[index].pid,
+                        //       players: state.players,
+                        //     ));
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return PlayerDetailsPage(
+                                player: state.filteredPlayers[index],
+                              );
+                            },
+                          ),
+                        );
+                      },
+                    );
                   },
-                  child: ListView.builder(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 10,
-                    ).copyWith(bottom: 120),
-                    itemCount: state.filteredPlayers.length,
-                    itemBuilder: (context, index) {
-                      return PlayerCard(
-                        player: state.filteredPlayers[index],
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return PlayerDetailsPage(
-                                  player: state.players[index],
-                                );
-                              },
-                            ),
-                          );
-                        },
-                      );
-                    },
-                  ),
                 );
               }
 

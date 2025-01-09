@@ -93,8 +93,8 @@ class ChoosePlayerPage extends StatelessWidget {
             builder: (context, state) {
               if (state is PlayersLoaded) {
                 final reorderedPlayers = [
-                  ...state.players.where((p) => p.name == player.name),
-                  ...state.players.where((p) => p.name != player.name),
+                  ...state.players.where((p) => p.id == player.id),
+                  ...state.players.where((p) => p.id != player.id),
                 ];
 
                 return Expanded(
@@ -107,7 +107,7 @@ class ChoosePlayerPage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       return PlayerCard(
                         player: reorderedPlayers[index],
-                        active: reorderedPlayers[index].name == player.name,
+                        active: reorderedPlayers[index].id == player.id,
                         onPressed: () {
                           context.read<FormationBloc>().add(SelectPlayer(
                                 player: reorderedPlayers[index],

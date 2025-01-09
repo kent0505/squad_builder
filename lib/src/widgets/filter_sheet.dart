@@ -105,7 +105,7 @@ class FilterSheet extends StatelessWidget {
           Row(
             children: [
               SizedBox(width: 16),
-              _Filter('Miedfielder'),
+              _Filter('Midfielder'),
               SizedBox(width: 8),
               _Filter('Winger'),
               SizedBox(width: 16),

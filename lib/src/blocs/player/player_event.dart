@@ -14,3 +14,13 @@ class FilterPlayers extends PlayerEvent {
   final String position;
   final List<Player> players;
 }
+
+class GetPlayerDetails extends PlayerEvent {
+  GetPlayerDetails({
+    required this.pid,
+    required this.players,
+  });
+
+  final int pid;
+  final List<Player> players;
+}
