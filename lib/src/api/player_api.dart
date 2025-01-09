@@ -1,18 +1,18 @@
-import 'package:dio/dio.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+// import 'package:dio/dio.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 // import '../models/player.dart';
-import '../models/player_detail.dart';
+// import '../models/player_detail.dart';
 
-class PlayerApi {
-  final _dio = Dio();
-  final _options = Options(
-    validateStatus: (status) => true,
-    receiveTimeout: Duration(seconds: 5),
-    sendTimeout: Duration(seconds: 5),
-  );
+// class PlayerApi {
+//   final _dio = Dio();
+//   final _options = Options(
+//     validateStatus: (status) => true,
+//     receiveTimeout: Duration(seconds: 5),
+//     sendTimeout: Duration(seconds: 5),
+//   );
 
-  String baseUrl = dotenv.env['URL'] ?? '';
+  // String baseUrl = dotenv.env['URL'] ?? '';
 
   // Future<List<Player>> getPlayers() async {
   //   try {
@@ -37,16 +37,16 @@ class PlayerApi {
   //   }
   // }
 
-  Future<PlayerDetail> getPlayer(int pid) async {
-    try {
-      final response = await _dio.get(
-        '$baseUrl/player/$pid',
-        options: _options,
-      );
-      print(response.data);
-      return PlayerDetail.fromJson(response.data['player']);
-    } on Object catch (error, stackTrace) {
-      Error.throwWithStackTrace(error, stackTrace);
-    }
-  }
-}
+  // Future<PlayerDetail> getPlayer(int pid) async {
+  //   try {
+  //     final response = await _dio.get(
+  //       '$baseUrl/player/$pid',
+  //       options: _options,
+  //     );
+  //     print(response.data);
+  //     return PlayerDetail.fromJson(response.data['player']);
+  //   } on Object catch (error, stackTrace) {
+  //     Error.throwWithStackTrace(error, stackTrace);
+  //   }
+  // }
+// }
