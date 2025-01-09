@@ -45,7 +45,7 @@ class LeaguesPage extends StatelessWidget {
                         padding: EdgeInsets.symmetric(
                           horizontal: 16,
                           vertical: 10,
-                        ),
+                        ).copyWith(bottom: 110),
                         itemCount: state.leagues.length,
                         itemBuilder: (context, index) {
                           return LeagueCard(league: state.leagues[index]);
